@@ -6,6 +6,11 @@
 #include <string>
 
 namespace LinuxParser {
+// Struct to return CPU stats
+struct CpuStats {
+  float idle;
+  float nonidle;
+};
 // Paths
 const std::string kProcDirectory{"/proc/"};
 const std::string kCmdlineFilename{"/cmdline"};
@@ -19,6 +24,8 @@ const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
 // System
+float FreeMemory();
+float TotalMemory();
 float MemoryUtilization();
 long UpTime();
 std::vector<int> Pids();
@@ -40,10 +47,11 @@ enum CPUStates {
   kGuest_,
   kGuestNice_
 };
-std::vector<std::string> CpuUtilization();
+CpuStats CpuUtilization();
 long Jiffies();
 long ActiveJiffies();
 long ActiveJiffies(int pid);
+long ProcActiveTime(int pid);
 long IdleJiffies();
 
 // Processes
